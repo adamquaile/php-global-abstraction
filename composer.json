@@ -1,0 +1,26 @@
+{
+    "name": "adamquaile/php-global-abstraction",
+    "description": "Wrapper around features of PHP which affect global scope",
+    "require": {
+        "php": ">= 5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adam Quaile",
+            "email": "adamquaile@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AdamQuaile\\PhpGlobal\\Tests\\": "tests",
+            "AdamQuaile\\PhpGlobal\\": "src"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
