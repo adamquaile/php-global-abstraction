@@ -11,7 +11,7 @@ This library has two main use cases:
   
 ## Usage
 
-Install with composer, `adamquaile/php-global-abstraction`. 
+Install it with composer, `adamquaile/php-global-abstraction`. 
   
 
     <?php
