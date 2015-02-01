@@ -11,6 +11,10 @@ class FunctionWrapperTest extends \PHPUnit_Framework_TestCase
      */
     private $functions;
 
+    private $spyWasCalled = false;
+
+    private $spyArgs = null;
+
     protected function setUp()
     {
         $this->functions = new FunctionWrapper();
@@ -46,6 +50,36 @@ class FunctionWrapperTest extends \PHPUnit_Framework_TestCase
         $funcName = $this->functions->create(function() {return 'auto';});
         $this->assertTrue(function_exists($funcName));
         $this->assertSame('auto', $funcName());
+    }
+
+    /**
+     * @depends testCreatesFunctionFromArrayCallableSyntax
+     */
+    public function testFunctionCanBeInvokedAndReturnsResult()
+    {
+        $functionToInvoke = $this->functions->create(array($this, 'spyFunction'));
+        $this->assertEquals('spied', $this->functions->invoke($functionToInvoke));
+        $this->assertTrue($this->spyWasCalled);
+    }
+
+    /**
+     * @depends testCreatesFunctionFromArrayCallableSyntax
+     */
+    public function testFunctionCanBeInvokedWithParameters()
+    {
+        $functionToInvoke = $this->functions->create(array($this, 'spyFunction'));
+        $this->functions->invoke($functionToInvoke, array('my', 'params'));
+        $this->assertTrue($this->spyWasCalled);
+        $this->assertEquals($this->spyArgs, array('my', 'params'));
+    }
+
+
+    public function spyFunction()
+    {
+        $this->spyWasCalled = true;
+        $this->spyArgs = func_get_args();
+
+        return 'spied';
     }
 
     public function methodCallable()
