@@ -42,4 +42,7 @@ Install it with composer, `adamquaile/php-global-abstraction`.
     $functionName = $functions->create($callable);
     $$functionName($arguments);
     
+    # Call a function existing in global scope
+    $functions->invoke('strlen', 'hello world');
+    
     
