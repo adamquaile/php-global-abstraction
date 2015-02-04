@@ -1,6 +1,12 @@
 # Global scope abstraction for PHP
 
-This library provides object-oriented wrappers around some of the features of PHP affecting global scope. Right now, the only implemented features are constants and functions. 
+This library provides object-oriented wrappers around some of the features of PHP affecting global scope. 
+
+The currently implemented features are:
+ 
+  - Constants
+  - Functions 
+  - Echo / Print
 
 [Global state is evil](http://programmers.stackexchange.com/questions/148108/why-is-global-state-so-evil). Avoid it wherever possible. Do not think this library makes it okay. 
 
@@ -45,4 +51,10 @@ Install it with composer, `adamquaile/php-global-abstraction`.
     # Call a function existing in global scope
     $functions->invoke('strlen', 'hello world');
     
+**Echo / Print**
+
+    <?php
     
+    $output = new \AdamQuaile\PhpGlobal\Output\EchoWrapper();
+    
+    $output->output('Hello ', $world);
