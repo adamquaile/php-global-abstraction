@@ -2,29 +2,31 @@
 
 namespace AdamQuaile\PhpGlobal\Functions;
 
-use AdamQuaile\PhpGlobal\Functions\Exceptions\FunctionAlreadyExists;
-
 class FunctionWrapper
 {
+    /**
+     * @var FunctionCreator
+     */
+    private $creator;
+
+    /**
+     * @var FunctionInvoker
+     */
+    private $invoker;
+
+    public function __construct(FunctionCreator $creator, FunctionInvoker $invoker)
+    {
+        $this->creator = $creator;
+        $this->invoker = $invoker;
+    }
+
     public function create($callable, $name = null)
     {
-        if (is_null($name)) {
-            $name = 'func_' . md5(uniqid());
-        }
-        if (function_exists($name)) {
-            throw new FunctionAlreadyExists($name);
-        }
-        $uniqueFunctionName = 'func_' . md5(uniqid());
-
-        $GLOBALS[$uniqueFunctionName] = $callable;
-
-        eval("function $name() { return call_user_func_array(\$GLOBALS['$uniqueFunctionName'], func_get_args()); }");
-
-        return $name;
+        return $this->creator->create($callable, $name);
     }
 
     public function invoke($callable, $args = array())
     {
-        return call_user_func_array($callable, $args);
+        return $this->invoker->invoke($callable, $args);
     }
 }

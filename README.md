@@ -34,8 +34,10 @@ Install it with composer, `adamquaile/php-global-abstraction`.
 
     <?php
     
-    $functions = new \AdamQuaile\PhpGlobal\Functions\FunctionWrapper();
-    
+    $functions = new \AdamQuaile\PhpGlobal\Functions\FunctionWrapper(
+        new FunctionCreator(),
+        new FunctionInvoker()
+    );
     
     # Create function with a specified name
     
