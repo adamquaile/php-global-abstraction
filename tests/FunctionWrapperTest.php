@@ -2,6 +2,8 @@
 
 namespace AdamQuaile\PhpGlobal\Tests;
 
+use AdamQuaile\PhpGlobal\Functions\FunctionCreator;
+use AdamQuaile\PhpGlobal\Functions\FunctionInvoker;
 use AdamQuaile\PhpGlobal\Functions\FunctionWrapper;
 
 class FunctionWrapperTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +19,10 @@ class FunctionWrapperTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->functions = new FunctionWrapper();
+        $this->functions = new FunctionWrapper(
+            new FunctionCreator(),
+            new FunctionInvoker()
+        );
     }
 
     public function testCreatesFunctionFromClosure()
