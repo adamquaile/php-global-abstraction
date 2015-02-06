@@ -79,6 +79,14 @@ class FunctionWrapperTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function testThrowsExceptionWhenFunctionNotFound()
+    {
+        $this->setExpectedException('AdamQuaile\PhpGlobal\Functions\Exceptions\FunctionNotFound');
+        $this->functions->invoke('not_found_function');
+    }
+
+
+
     public function spyFunction()
     {
         $this->spyWasCalled = true;
